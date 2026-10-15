@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仙台市 地理パズル</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="success-popup">正解！🎉</div>
+
+    <!-- スタート画面 -->
+    <div id="menu-panel" class="panel">
+        <h2>仙台市 地理パズル</h2>
+        <div class="menu-group">
+            <label><strong>モードを選んでね：</strong></label><br>
+            <select id="game-mode" onchange="onGameModeChange()">
+                <option value="count">好きな問題数で遊ぶ</option>
+                <option value="ward-all">各区の全問制覇</option>
+                <option value="city-all">仙台市全域の全問制覇</option>
+                <option value="explore">探索モード（全地区の地名を表示）</option>
+            </select>
+        </div>
+        <div class="menu-group" id="sub-setting-box">
+            <div id="setting-count" style="margin-bottom: 8px;">
+                問題数: 
+                <select id="question-count-select">
+                    <option value="5">5問</option>
+                    <option value="10" selected>10問</option>
+                    <option value="20">20問</option>
+                </select>
+            </div>
+            <div id="setting-ward" style="display: none; margin-bottom: 8px;">
+                対象の区: 
+                <select id="target-ward-select">
+                    <option value="青葉区">青葉区</option>
+                    <option value="太白区">太白区</option>
+                    <option value="宮城野区">宮城野区</option>
+                    <option value="若林区">若林区</option>
+                    <option value="泉区">泉区</option>
+                </select>
+            </div>
+            <button id="start-btn" onclick="startGame()">ゲームスタート！</button>
+        </div>
+    </div>
+
+    <!-- クイズ画面 -->
+    <div id="quiz-panel" class="panel" style="display: none;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+            <span id="game-mode-title" style="font-size: 11px; color: #0275d8; font-weight: bold;"></span>
+            <button onclick="returnToMenu()" style="font-size: 10px; padding: 2px 6px; cursor: pointer;">メニューに戻る</button>
+        </div>
+        
+        <div style="font-size: 11px; text-align: left; margin-bottom: 4px; background: #f1f1f1; padding: 3px 6px; border-radius: 3px;">
+            <label style="cursor: pointer;">
+                <input type="checkbox" id="quiz-hover-toggle" checked onchange="toggleHoverLabel()"> ホバー地名表示
+            </label>
+        </div>
+
+        <div id="quiz-ui-box">
+            <div style="margin-bottom: 4px;">
+                お題: <span id="target-name" style="color: #d9534f; font-size: 15px;">---</span> 
+                <span id="target-ward" style="font-size: 11px; color: #666;"></span>
+            </div>
+            <div style="margin-bottom: 6px;">
+                <button id="hint-btn" onclick="showHint()">ヒント</button>
+            </div>
+            <div id="shape-preview"></div>
+            <div id="feedback-msg"></div>
+            <span id="score" style="font-size: 11px; color: #555;"></span>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <!-- r2ka04.js を先に読み込んで allData を使えるようにする -->
+    <script src="r2ka04.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
